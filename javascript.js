@@ -1,27 +1,70 @@
-//used to chnage scale of the graph
+let click = false;
+
+// creating and adding variables from html
+const padContainer = document.querySelector(".pad");
+const slider = document.querySelector(".slider");
+const main = document.querySelector("main");
+const pen = document.createElement("p");
+pen.classList.add("pen");
+const clearButton = document.querySelector(".clear-button");
+const colorPicker = document.querySelector(".color");
+
+
+//used to change scale of the graph
 function changePadSize (size) {
-    const padContainer = document.querySelector(".pad");
+
+    // removing old boxes and creating the rows and collums
+    
     const boxes = padContainer.querySelectorAll("div");
     boxes.forEach((div) => div.remove());
     padContainer.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
     padContainer.style.gridTemplateRows = `repeat(${size}, 1fr)`;
     
+    // creats as many boxes as we need depending on the slider value
     let quantity = size * size;
+
     for (let i = 0; i < quantity; i++) {
         const box = document.createElement("div");
         box.classList.add("box");
-        box.style.backgroundColor = "pink";
-        box.style.border = "1px solid black";
+        box.style.backgroundColor = "white";
+
+        // event listeners
+        box.addEventListener("mouseover", e => {
+            color(colorPicker.value);
+        })
+
+        clearButton.addEventListener("click", e => {
+            box.style.backgroundColor = "white";
+        })
+
+        //function to change color
+        function color (shade) {
+            if (click === true) {
+                box.style.backgroundColor = shade;
+            }
+        }
+
         padContainer.insertAdjacentElement("beforeend", box);
     }
+
+    
 }
 
-const slider = document.querySelector(".slider");
+main.appendChild(pen);
 
 changePadSize(slider.value);
+pen.textContent = "pen off";
 
 //event listeners
 slider.addEventListener("click", e => {
     changePadSize(slider.value);
-})
+});
 
+padContainer.addEventListener("click", e => {
+    click = !click;
+    if (click) {
+        pen.textContent = "pen on";
+    } else {
+        pen.textContent = "pen off";
+    }
+});
