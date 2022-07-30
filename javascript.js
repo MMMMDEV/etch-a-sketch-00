@@ -26,7 +26,7 @@ function changePadSize (size) {
     for (let i = 0; i < quantity; i++) {
         const box = document.createElement("div");
         box.classList.add("box");
-        box.style.backgroundColor = "white";
+        box.style.backgroundColor = "fafaffff";
 
         // event listeners
         box.addEventListener("mouseover", e => {
@@ -34,13 +34,13 @@ function changePadSize (size) {
         })
 
         clearButton.addEventListener("click", e => {
-            box.style.backgroundColor = "white";
+            box.style.backgroundColor = "fafaffff";
         })
 
         //function to change color
-        function color (shade) {
+        function color (type) {
             if (click === true) {
-                box.style.backgroundColor = shade;
+                box.style.backgroundColor = type;
             }
         }
 
