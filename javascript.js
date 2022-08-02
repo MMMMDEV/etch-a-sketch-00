@@ -8,6 +8,7 @@ const pen = document.createElement("p");
 pen.classList.add("pen");
 const clearButton = document.querySelector(".clear-button");
 const colorPicker = document.querySelector(".color");
+const thumb = document.querySelector(".thumb-value")
 
 
 //used to change scale of the graph
@@ -26,7 +27,7 @@ function changePadSize (size) {
     for (let i = 0; i < quantity; i++) {
         const box = document.createElement("div");
         box.classList.add("box");
-        box.style.backgroundColor = "fafaffff";
+        box.style.backgroundColor = "#fafaffff";
 
         // event listeners
         box.addEventListener("mouseover", e => {
@@ -34,7 +35,7 @@ function changePadSize (size) {
         })
 
         clearButton.addEventListener("click", e => {
-            box.style.backgroundColor = "fafaffff";
+            box.style.backgroundColor = "#fafaffff";
         })
 
         //function to change color
@@ -46,19 +47,31 @@ function changePadSize (size) {
 
         padContainer.insertAdjacentElement("beforeend", box);
     }
-
-    
+    main.appendChild(pen);
 }
 
-main.appendChild(pen);
-
 changePadSize(slider.value);
+
 pen.textContent = "pen off";
+thumb.textContent = slider.value + " x " + slider.value;
+
+slider.oninput = (() => {
+    let value = slider.value;
+    thumb.textContent = value + " x " + value;
+})
+
+
 
 //event listeners
 slider.addEventListener("click", e => {
     changePadSize(slider.value);
 });
+
+slider.addEventListener("input", function() {
+    let v = slider.value;
+    let color = "linear-gradient(90deg, #EFD9CE " + v + "%, #fafaffff " + v +"%)";
+    slider.style.background = color;
+})
 
 padContainer.addEventListener("click", e => {
     click = !click;
@@ -68,3 +81,5 @@ padContainer.addEventListener("click", e => {
         pen.textContent = "pen off";
     }
 });
+
+
