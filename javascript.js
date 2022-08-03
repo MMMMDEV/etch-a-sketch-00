@@ -2,8 +2,11 @@ let click = false;
 
 // creating and adding variables from html
 const padContainer = document.querySelector(".pad");
+const ePad = document.querySelector("ePad");
 const slider = document.querySelector(".slider");
 const main = document.querySelector("main");
+const penContainer = document.createElement("div");
+penContainer.classList.add("pen-container");
 const pen = document.createElement("p");
 pen.classList.add("pen");
 const clearButton = document.querySelector(".clear-button");
@@ -47,9 +50,11 @@ function changePadSize (size) {
 
         padContainer.insertAdjacentElement("beforeend", box);
     }
-    main.appendChild(pen);
+    
 }
 
+main.appendChild(penContainer);
+penContainer.appendChild(pen);
 changePadSize(slider.value);
 
 pen.textContent = "pen off";
